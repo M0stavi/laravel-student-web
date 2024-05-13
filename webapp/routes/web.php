@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\NavigationController;
 
 /*
@@ -33,7 +34,16 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/content', [NavigationController::class, 'showFeed'])->name('showFeed');
     Route::post('/content',  [NavigationController::class, 'upload'])->name('upload.post');
     Route::post('/posts/{post}/like',  [NavigationController::class, 'like'])->name('like.post');
-    
     Route::post('/posts/{post}/comment',  [NavigationController::class, 'commentView'])->name('comment');
     Route::post('/comment/{postid}/post',  [NavigationController::class, 'commentPost'])->name('comment.post');
+    
+    Route::get('/uploader', [NavigationController::class, 'onlyUpload'])->name('onlyUpload');
+    Route::get('/reviews', [NavigationController::class, 'review'])->name('reviews');
+    
+    Route::get('/contact', [NavigationController::class, 'contact'])->name('contact');
+    Route::post('/contact', [NavigationController::class, 'contactPost'])->name('contact.post');
+
+    Route::get('/about', [NavigationController::class, 'about'])->name('about');
+    
+
 });

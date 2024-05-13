@@ -6,8 +6,10 @@ use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\Contact;
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class NavigationController extends Controller
 {
@@ -49,18 +51,28 @@ class NavigationController extends Controller
     }
 
     public function upload(Request $request){
-
+        // dd($request->all());
         $request->validate([
-            'caption' => 'required'
+            'caption' => 'required',
+            'file' => 'required'
         ]);
 
         $user = auth()->user(); // Retrieve the authenticated user
-
+   
+        $file = $request->file('file');
+    $fileName = $file->getClientOriginalName(); 
         $post = Post::create([
             'email' => $user->email,
             'name' => $user->name,
-            'caption' => $request->caption
+            'caption' => $request->caption,
+            'content' => $fileName
         ]);
+        
+
+    $file->move('upload', $fileName);
+
+
+        
 
         
         return redirect(route('showFeed'));
@@ -118,5 +130,38 @@ class NavigationController extends Controller
             'post' => $posts,
             'comments' => $comments, // Pass the $comment variable to the view
             ]);
+    }
+
+    public function onlyUpload(){
+        return view('upload');
+    }
+
+    public function review(){
+        $posts = Post::where('email', auth()->user()->email)->get();
+        return view('reviews',compact('posts'));
+    }
+
+    public function contact(){
+        return view('contact');
+    }
+
+    public function contactPost(Request $request){
+        $request->validate([
+            'firstname' => 'required',
+            'lastsname' => 'required',
+            'email' => 'required',
+            'help' => 'required'
+        ]);
+        $contact = Contact::create([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastsname,
+            'email' => $request->email,
+            'help' => $request->help
+        ]);
+        return redirect(route('contact'));
+    }
+
+    public function about(){
+        return view('about');
     }
 }

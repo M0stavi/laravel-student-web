@@ -15,6 +15,23 @@
         <li class="nav-item">
           <a class="nav-link" href="{{route('showFeed')}}">Content</a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('showFeed')}}">Review</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('onlyUpload')}}">Upload</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('reviews')}}">Reviews</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('contact')}}">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('about')}}">About Us</a>
+        </li>
         
         <li class="nav-item">
           <a class="nav-link" href="{{route('logout')}}">Logout</a>

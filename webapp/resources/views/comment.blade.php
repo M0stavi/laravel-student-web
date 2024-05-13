@@ -6,6 +6,7 @@
 
 <h3>{{ $post->name }} posted Updated:{{ $post->updated_at->diffForHumans()}}</h3>
 <h1>{{ $post->caption }}</h1>
+<h1>{{ $post->content }}</h1>
 
 <!-- Display comments -->
 <form action="{{ route('comment.post', $post->id) }}" method="POST" class="ms-auto me-auto mt-auto" style="width:400px">
