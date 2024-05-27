@@ -19,9 +19,9 @@ class AuthController extends Controller
     }
 
     public function registerView(){
-        if(Auth::check()){
-            return redirect(route('home'));
-        }
+        // if(Auth::check()){
+        //     return redirect(route('home'));
+        // }
         return view('register');
     }
 

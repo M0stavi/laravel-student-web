@@ -8,6 +8,19 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         
       @auth
+
+      @if(auth()->user()->profile && auth()->user()->profile->role == 'admin')
+      <li class="nav-item">
+          <a class="nav-link" href="{{route('register')}}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('showMessages')}}">Messages</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('logout')}}">Logout</a>
+        </li>
+    @else
+
         <li class="nav-item">
           <a class="nav-link" href="{{route('home')}}">Home</a>
         </li>
@@ -15,14 +28,11 @@
         <li class="nav-item">
           <a class="nav-link" href="{{route('showFeed')}}">Content</a>
         </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="{{route('showFeed')}}">Review</a>
-        </li>
-
+        @if(auth()->user()->profile && auth()->user()->profile->role == 'student')
         <li class="nav-item">
           <a class="nav-link" href="{{route('onlyUpload')}}">Upload</a>
         </li>
+        @endif
         <li class="nav-item">
           <a class="nav-link" href="{{route('reviews')}}">Reviews</a>
         </li>
@@ -36,14 +46,17 @@
         <li class="nav-item">
           <a class="nav-link" href="{{route('logout')}}">Logout</a>
         </li>
+
+        @endif
       
       @else
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{{route('login')}}">Login</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="{{route('register')}}">Register</a>
-        </li>
+        </li> -->
+      
         @endauth
         <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -37,6 +37,10 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/posts/{post}/comment',  [NavigationController::class, 'commentView'])->name('comment');
     Route::post('/comment/{postid}/post',  [NavigationController::class, 'commentPost'])->name('comment.post');
     
+    Route::post('/posts/{post}/review',  [NavigationController::class, 'reviewView'])->name('review');
+    Route::post('/review/{postid}/post',  [NavigationController::class, 'reviewPost'])->name('review.post');
+    
+
     Route::get('/uploader', [NavigationController::class, 'onlyUpload'])->name('onlyUpload');
     Route::get('/reviews', [NavigationController::class, 'review'])->name('reviews');
     
@@ -45,5 +49,8 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::get('/about', [NavigationController::class, 'about'])->name('about');
     
+    Route::get('/messages', [NavigationController::class, 'showMessages'])->name('showMessages');
+
+    Route::post('/contentUpload',  [NavigationController::class, 'contentUpload'])->name('content.post');
 
 });

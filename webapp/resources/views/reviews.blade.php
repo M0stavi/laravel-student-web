@@ -13,34 +13,51 @@
         @endif
     </div> -->
     <div class="mb-3">
+    @if(auth()->user()->profile && auth()->user()->profile->role == 'teacher')
+    <h1>Student Uploads</h1>
+    @else 
     <h1>Your Uploads</h1>
+    @endif
     <ul>
         @foreach ($posts as $post)
+        @if(auth()->user()->profile && auth()->user()->profile->role == 'teacher')
+
             <ul><h3>{{ $post->name }} posted Updated:{{ $post->updated_at->diffForHumans()}}</h3></ul>
             <ul><h1>{{ $post->caption }}</h1></ul> 
             @if ($post->content)
                 <ul><h1>File name: {{ $post->content }}</h1></ul> 
             @endif
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group me-2" role="group" aria-label="First group">
-                <form action="{{ route('like.post', $post) }}" method="POST">
+            
+            
+            <div class="btn-group me-2" role="group" aria-label="Second group">
+                <form action="{{ route('review', ['post' => $post->id]) }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-primary">Like {{ $post->likes }}</button>
+                    <button type="submit" class="btn btn-secondary">Reviews</button>
                 </form>
             </div>
             
+            </div>
+            @else
+            @if(auth()->user()->email == $post->email)
+            <ul><h3>{{ $post->name }} posted Updated:{{ $post->updated_at->diffForHumans()}}</h3></ul>
+            <ul><h1>{{ $post->caption }}</h1></ul> 
+            @if ($post->content)
+                <ul><h1>File name: {{ $post->content }}</h1></ul> 
+            @endif
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            
+            
             <div class="btn-group me-2" role="group" aria-label="Second group">
-                <form action="{{ route('comment', ['post' => $post->id]) }}" method="POST">
+                <form action="{{ route('review', ['post' => $post->id]) }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-secondary">Comment {{ $post->comments }}</button>
+                    <button type="submit" class="btn btn-secondary">Reviews </button>
                 </form>
             </div>
-            <div class="btn-group" role="group" aria-label="Third group">
-                
-                <button type="button" class="btn btn-info">Share {{ $post->shares }}</button>
-                
             </div>
-            </div>
+            @endif
+
+            @endif
         @endforeach
             </ul>
         </div>
