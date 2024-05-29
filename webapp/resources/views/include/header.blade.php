@@ -42,10 +42,14 @@
         <li class="nav-item">
           <a class="nav-link" href="{{route('about')}}">About Us</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('assignment')}}">Assignment</a>
+        </li>
         
         <li class="nav-item">
           <a class="nav-link" href="{{route('logout')}}">Logout</a>
         </li>
+
 
         @endif
       

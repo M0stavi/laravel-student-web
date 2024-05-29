@@ -53,4 +53,8 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::post('/contentUpload',  [NavigationController::class, 'contentUpload'])->name('content.post');
 
+    Route::get('/assignment', [NavigationController::class, 'assignmentView'])->name('assignment');
+
+    Route::post('/assignment', [NavigationController::class, 'assignmentPost'])->name('assignment.post');
+
 });

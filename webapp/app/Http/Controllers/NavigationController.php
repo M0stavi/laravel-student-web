@@ -10,6 +10,7 @@ use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Content;
 use App\Models\Profile;
+use App\Models\Assignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -275,5 +276,24 @@ class NavigationController extends Controller
 
     public function about(){
         return view('about');
+    }
+
+    public function assignmentView(){
+        $assignments = Assignment::all();
+        return view('assignment', compact('assignments'));
+    }
+
+    public function assignmentPost(Request $request){
+        $request->validate([
+            'title' => 'required',
+            'link' => 'required'
+        ]);
+        $assignment = Assignment::create([
+            'title' => $request->title,
+            'link' => $request->link,
+            'teacherEmail' => auth()->user()->email,
+            'teacherName' => auth()->user()->name
+        ]);
+        return redirect(route('assignment'));
     }
 }
